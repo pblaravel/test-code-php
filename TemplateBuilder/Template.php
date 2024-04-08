@@ -60,12 +60,12 @@ class Template implements TemplateInterface
                 $start_post = strpos($template, "{");
                 $end_post = strpos($template, "}", $start_post);
                 if ($start_post !== false && $end_post !== false){
-                    $template = substr_replace($template, "", $start_post, $end_post);
+                    $template = substr_replace($template, "", $start_post, $end_post - $start_post);
                     unset($args[$k]);
                 }
             }
         }
-        return $args;
+        return array_values($args);
     }
 
 }

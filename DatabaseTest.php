@@ -56,6 +56,40 @@ class DatabaseTest
         if ($results !== $correct) {
             throw new Exception('Failure.');
         }
-        print("Base test is work fine");
+        print("Base test is work fine" . PHP_EOL);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testAdditionalBuildQuery(): void
+    {
+        $results = [];
+
+        $results[] = $this->db->buildQuery(
+            'SELECT ?# FROM users WHERE name = ? AND block = 0',
+            ['name', 'Jack']
+        );
+
+        $results[] = $this->db->buildQuery(
+            'SELECT name FROM users WHERE ?# IN (?a){ AND block = ?d}{ AND name = ?}',
+            ['user_id', [1, 2, 3], $this->db->skip(), 'Jack']
+        );
+
+        $results[] = $this->db->buildQuery(
+            'UPDATE users ?a WHERE name = ? AND block = ?',
+            [['name' => 'Jack', 'email' => null], 'Jack', 1]
+        );
+
+        $correct = [
+            'SELECT `name` FROM users WHERE name = \'Jack\' AND block = 0',
+            'SELECT name FROM users WHERE `user_id` IN (1, 2, 3) AND name = \'Jack\'',
+            'UPDATE users `name` = \'Jack\', `email` = NULL WHERE name = \'Jack\' AND block = 1',
+        ];
+
+        if ($results !== $correct) {
+            throw new Exception('Failure.');
+        }
+        print("Additional test is work fine" . PHP_EOL);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace FpDbTest\TemplateBuilder\Specifiers;
 
+use FpDbTest\TemplateBuilder\Utils;
+
 class IdentifierOrArrayOfSpecifiers  extends DefaultSpecifiers
 {
     // signature of template, this signature is searcher for replace
@@ -10,10 +12,10 @@ class IdentifierOrArrayOfSpecifiers  extends DefaultSpecifiers
     #[\Override] public static function renderTemplate(&$template, $args): void
     {
         if (is_array($args)){
-            $template = str_replace(self::$signature, self::formatArray($args), $template);
+            $template = Utils::strReplaceFirst(self::$signature, self::formatArray($args), $template);
         }
         if (is_string($args)){
-            $template = str_replace(self::$signature, sprintf("`%s`", addslashes($args)), $template);
+            $template = Utils::strReplaceFirst(self::$signature, sprintf("`%s`", addslashes($args)), $template);
         }
     }
 

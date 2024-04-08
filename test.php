@@ -22,5 +22,6 @@ $template = new Template();
 $db = new Database($mysqli, $template);
 $test = new DatabaseTest($db);
 $test->testBuildQuery();
+$test->testAdditionalBuildQuery();
 
 exit('OK');

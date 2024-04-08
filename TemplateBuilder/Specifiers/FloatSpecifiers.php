@@ -12,7 +12,7 @@ class FloatSpecifiers  extends DefaultSpecifiers
     #[\Override] public static function renderTemplate(&$template, $args): void
     {
         if (is_float($args)){
-            $template = str_replace(self::$signature, $args, $template);
+            $template = Utils::strReplaceFirst(self::$signature, $args, $template);
         }
         Utils::renderNull($template, $args, self::$signature);
     }
