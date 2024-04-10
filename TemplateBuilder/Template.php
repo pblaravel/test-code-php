@@ -2,6 +2,8 @@
 
 namespace FpDbTest\TemplateBuilder;
 
+use Exception;
+
 class Template implements TemplateInterface
 {
     // Register list ot signature for template
@@ -30,7 +32,7 @@ class Template implements TemplateInterface
         $matches = [];
         // find all signature by regex
         preg_match_all($this->generateRegex(), $template, $matches, PREG_SET_ORDER, 0);
-        if (count($matches) != count($args)) return $template; // if count of signature is not equal with count argument return same template
+        if (count($matches) != count($args)) throw new Exception("Count signature and count args is not equal");
         foreach ($matches as $key => $templateId) {
             foreach (self::SPECIFIERS as $spec) {
                 if ($spec::$signature == $templateId[0]) {
