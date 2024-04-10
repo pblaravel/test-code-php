@@ -5,11 +5,19 @@ namespace FpDbTest\TemplateBuilder\Specifiers;
 use Exception;
 use FpDbTest\TemplateBuilder\Utils;
 
+/**
+ * Class for replace signature ?d to template.
+ */
 class IntSpecifiers extends DefaultSpecifiers
 {
-    // signature of template, this signature is searcher for replace
+    /**
+     * Signature of template, this signature is searcher for replace
+     */
     static string $signature = "?d";
 
+    /**
+     * Function render template and replace signature by value
+     */
     #[\Override] public static function renderTemplate(&$template, $args): void
     {
         if (is_int($args)){

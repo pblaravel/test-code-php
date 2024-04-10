@@ -5,6 +5,9 @@ namespace FpDbTest\TemplateBuilder\Specifiers;
 use Exception;
 use FpDbTest\TemplateBuilder\Utils;
 
+/**
+ * Class for replace signature ?# to template.
+ */
 class IdentifierOrArrayOfSpecifiers  extends DefaultSpecifiers
 {
     // signature of template, this signature is searcher for replace

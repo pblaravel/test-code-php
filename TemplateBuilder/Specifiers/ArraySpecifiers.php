@@ -5,12 +5,20 @@ namespace FpDbTest\TemplateBuilder\Specifiers;
 use Exception;
 use FpDbTest\TemplateBuilder\Utils;
 
+
+/**
+ * Class default for replace signature ?a to template.
+ */
 class ArraySpecifiers  extends DefaultSpecifiers
 {
     // signature of template, this signature is searcher for replace
     static string $signature = "?a";
 
     /**
+     * Function render template and replace signature by value.
+     * if associative array ['name' => 'Jack', 'email' => null] replace to `name` = \'Jack\', `email` = NULL
+     * if is list of value [1, 2, 3] replace to 1, 2, 3
+     *
      * @throws Exception
      */
     #[\Override] public static function renderTemplate(&$template, $args): void
@@ -21,10 +29,6 @@ class ArraySpecifiers  extends DefaultSpecifiers
         }
         if (array_is_list($args)){
             $template = Utils::strReplaceFirst(self::$signature, implode(", ", $args), $template);
-            return;
-        }
-        if (is_string($args)){
-            $template = Utils::strReplaceFirst(self::$signature, sprintf("`%s`", addslashes($args)), $template);
             return;
         }
         throw new Exception("Wrong type to template");
